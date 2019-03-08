@@ -1,0 +1,20 @@
+Simulation KeyBinds
+
+Toggle Console On = Prior
+Toggle Consol Off = Next
+Toggle Fullscreen On = Home
+Toggle Fullscreen Off = End
+Toggle Screen Mouse Lock = L
+Toggle WireFrame = F
+
+Move Forward = W
+Move Backwards = S
+Move Left = A
+Move Right = D
+Move Up = Space
+Move Down = Shift
+Look Around  = Mouse
+Speed Up = +
+Speed Down = -
+
+Reset Camera = E
