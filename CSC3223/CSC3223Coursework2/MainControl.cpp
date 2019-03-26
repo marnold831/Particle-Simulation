@@ -35,7 +35,7 @@ int main() {
 	/*Renderer Creation, Objects Creation*/
 	Renderer*	renderer = new Renderer(*w);
 	TerrainGeneration* tG = new TerrainGeneration();
-	SnowGeneration* sG = new SnowGeneration(10000, 5.0, 50.0);
+	SnowGeneration* sG = new SnowGeneration(1000, 5.0, 50.0);
 	tG->generatePlane(*renderer, depth, width, 5.2, 5.2);
 	sG->generateSnow(*renderer, width, depth);
 
@@ -54,7 +54,7 @@ int main() {
 
 	while (w->UpdateWindow() && !Window::GetKeyboard()->KeyDown(KEYBOARD_ESCAPE)) {
 
-		renderer->EnableAlphaBlending(false);
+		renderer->EnableAlphaBlending(true);
 		float time = w->GetTimer()->GetTimeDelta();
 		renderer->Update(time);
 		renderer->DrawString(std::to_string(viewPosition.x) + " " + std::to_string(viewPosition.y) + " " + std::to_string(viewPosition.z), Vector2(20, 20));
@@ -128,6 +128,27 @@ int main() {
 		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_E)) {
 			viewPosition = (Vector3(0, 0, 0));
 			renderer->SetViewMatrix(Matrix4::Translation(viewPosition));
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_1)) {
+			speed = 1.0;
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_2)) {
+			speed = 0.1;
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_3)) {
+			speed = 0.01;
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_4)) {
+			speed = 0.001;
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_5)) {
+			speed = 0.0001;
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_6)) {
+			speed = 0.00001;
+		}
+		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_7)) {
+			speed = 0.000001;
 		}
 
 		/*Set Mouse variables*/
