@@ -19,10 +19,10 @@ void TransformFeedback::ReadTransformFeedback(RenderObject* object) {
 	MeshGeometry* mesh = object->GetMesh();
 
 	if ((frameCount & 1) != 0) {
-		BindVertexAttribute(0, object->GetBuffer()[0], 0, 3, sizeof(Vector3), 0);
+		BindVertexAttribute(0, object->GetBuffer()[1], 0, 3, sizeof(Vector3), 0);
 	}
 	else {
-		BindVertexAttribute(0, object->GetBuffer()[1], 0, 3, sizeof(Vector3), 0);
+		BindVertexAttribute(0, object->GetBuffer()[0], 0, 3, sizeof(Vector3), 0);
 	}
 }
 void TransformFeedback::InitTransformFeedback(GLuint* outputVBO, RenderObject* object) {
@@ -36,7 +36,13 @@ void TransformFeedback::InitTransformFeedback(GLuint* outputVBO, RenderObject* o
 	//glBufferData(GL_ARRAY_BUFFER, object->GetMesh()->GetVertexCount() * sizeof(Vector4), NULL, GL_DYNAMIC_DRAW);
 }
 void TransformFeedback::SetTransformFeedbackVaryings(GLuint program, GLsizei count,  const char* varyings) {
-	const char* varyingss[] = { varyings };
+
+	 const GLchar * varyingss[] =
+	{
+		"particlePosition"
+	};
+
+	//const char* varyingss[] = { varyings };
 	glTransformFeedbackVaryings(program, count,  varyingss, GL_INTERLEAVED_ATTRIBS);
 	glLinkProgram(program);
 

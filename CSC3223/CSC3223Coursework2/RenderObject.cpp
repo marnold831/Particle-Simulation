@@ -13,7 +13,11 @@ RenderObject::RenderObject(MeshGeometry* inMesh, const char* varyings, int varyi
 	glGenBuffers(2, buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vector3) * 1000, nullptr, GL_DYNAMIC_DRAW);
+	vector<Vector3> vec = mesh->GetPositionData();
+	Vector3* data = vec.data();
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vector<Vector3>) * mesh->GetVertexCount(), data, GL_DYNAMIC_DRAW);
+	glNamedBufferData(buffer[0], sizeof(Vector3) * mesh->GetVertexCount(), data, GL_DYNAMIC_DRAW);
+	glNamedBufferData(buffer[0], sizeof(Vector3) * mesh->GetVertexCount(), data, GL_DYNAMIC_DRAW);
 
 	//glGenTransformFeedbacks(2, buffer);
 }

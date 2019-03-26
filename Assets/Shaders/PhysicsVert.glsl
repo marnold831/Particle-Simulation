@@ -9,27 +9,26 @@ layout(location = 0) in vec3 position;
 layout(location = 1) in vec4 colour;	
 layout(location = 2) in vec2 texCoord;
 
-out Vertex
-{
-	vec4 colour;
-	vec2 texCoord;
-} OUT;
 
-out vec4 newPos;
+	out vec4 out_colour;
+	out vec2 out_texCoord;
+	out vec3 particlePosition;
+	
 void main(void)
 {
 	
-	vec4 new_position = vec4(position.x, position.y - 5, position.z, 1.0);
+	vec3 new_position = vec3(position.x, position.y - 5, position.z);
 	
-	if(new_position.y < 10.0)
-	{
-		new_position = vec4(new_position.x, position.y + 60, position.z, 1.0);
-	}
+	//if(new_position.y < 10.0)
+	//{
+	//	new_position = (new_position.x, new_position.y + 60, new_position.z);
+	//}
 	mat4 mvp 		= (projMatrix * viewMatrix * modelMatrix);
-	newPos = new_position;
-	gl_Position		= mvp * new_position;
+	
+	gl_Position		= mvp * vec4(new_position, 1.0);
 
-	OUT.colour		= colour;
-	OUT.texCoord	= texCoord;
+	out_colour		= colour;
+	out_texCoord	= texCoord;
+	particlePosition = new_position;
 	
 }

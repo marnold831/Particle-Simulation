@@ -61,7 +61,7 @@ void Renderer::RenderFrame() {
 				activeShader = objectShader;
 				feedback.SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
 				BindShader(activeShader); //sets glUseProgram to that of the shader id
-				//glEnable(GL_RASTERIZER_DISCARD);
+				glEnable(GL_RASTERIZER_DISCARD);
 				modelLocation = SetShaderAttributes(activeShader);
 				SetMatrixTransform(object, modelLocation);
 				
@@ -70,10 +70,11 @@ void Renderer::RenderFrame() {
 				feedback.EnableTransformFeedback(object);
 				DrawBoundMesh();
 				feedback.DisableTransformFeedback();
-				//glDisable(GL_RASTERIZER_DISCARD);
+				glDisable(GL_RASTERIZER_DISCARD);
 				
 				BindMesh(object->GetMesh());
 				activeShader = (OGLShader*)object->GetTransformShader();
+				feedback.SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
 				BindShader(activeShader);
 				
 				modelLocation = SetShaderAttributes(activeShader);
@@ -83,8 +84,7 @@ void Renderer::RenderFrame() {
 				feedback.EnableTransformFeedback(object);
 				feedback.ReadTransformFeedback(object);
 				GLuint mode = feedback.TypeConvertion(object->GetMesh()->GetPrimitiveType());
-				glDrawTransformFeedback(mode, object->GetBuffer()[1]);
-				//DrawBoundMesh();
+				DrawBoundMesh();
 				feedback.DisableTransformFeedback();
 				
 				feedback.UpdateFrameCount();

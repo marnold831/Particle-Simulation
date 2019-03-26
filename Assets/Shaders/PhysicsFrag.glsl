@@ -2,20 +2,18 @@
 
 uniform sampler2D mainTex;
 
-in Vertex
-{
-	vec4 colour;
-	vec2 texCoord;
-} IN;
-in vec4 newPos;
-out vec4 fragColor;
+	in vec4 colour;
+	in vec2 texCoord;
+
+
+	out vec4 fragColor;
 
 void main(void)
 {	
 	if(textureSize(mainTex, 1).x < 1.0f) {
-		fragColor = IN.colour;
+		fragColor = colour;
 	}
 	else {
-		fragColor = texture(mainTex, IN.texCoord);// * IN.colour;
+		fragColor = texture(mainTex, texCoord);// * colour;
 	}
 }
