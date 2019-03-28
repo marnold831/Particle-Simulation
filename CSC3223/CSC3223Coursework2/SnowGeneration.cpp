@@ -36,7 +36,7 @@ void SnowGeneration::generateSnow(Renderer& renderer, float width, float depth) 
 	
 
 	OGLShader* particlesShader = new OGLShader("PhysicsVert.glsl", "PhysicsFrag.glsl", "ParticleGeom.glsl");
-	OGLShader* transformShader = new OGLShader("TransformVert.glsl", "PhysicsFrag.glsl", "ParticleGeom.glsl");
+	OGLShader* transformShader = new OGLShader("TransformVert.glsl", "PhysicsFrag.glsl");
 	//OGLShader* transformShader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl", "ParticleGeom.glsl");
 
 	static const char varyings[] = {

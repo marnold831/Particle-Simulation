@@ -9,10 +9,13 @@ layout(location = 0) in vec3 position;
 layout(location = 1) in vec4 colour;	
 layout(location = 2) in vec2 texCoord;
 
+out Vertex 
+{
+	vec4 colour;
+	vec2 texCoord;
+	vec3 particlePosition;
+} OUT;
 
-	out vec4 out_colour;
-	out vec2 out_texCoord;
-	out vec3 particlePosition;
 	
 void main(void)
 {
