@@ -9,10 +9,10 @@ layout(location = 1) in vec4 colour;
 layout(location = 2) in vec2 texCoord;
 
 out Vertex 
-{
+{	
+	vec3 position;
 	vec4 colour;
 	vec2 texCoord;
-	vec3 particlePosition;
 } OUT;
 
 
@@ -23,10 +23,10 @@ void main(void)
 
 	gl_Position		= mvp * vec4(position, 1.0);
 
+	OUT.position	= position;
+	OUT.colour		= colour;
+	OUT.texCoord	= texCoord;
 	
-	out_colour		= colour;
-	out_texCoord	= texCoord;
 	
-	particlePosition = position;
 	
 }

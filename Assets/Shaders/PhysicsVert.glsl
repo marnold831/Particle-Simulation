@@ -11,9 +11,10 @@ layout(location = 2) in vec2 texCoord;
 
 out Vertex 
 {
+	//vec3 position;
 	vec4 colour;
 	vec2 texCoord;
-	vec3 particlePosition;
+	
 } OUT;
 
 	
@@ -29,9 +30,8 @@ void main(void)
 	mat4 mvp 		= (projMatrix * viewMatrix * modelMatrix);
 	
 	gl_Position		= mvp * vec4(new_position, 1.0);
-
-	out_colour		= colour;
-	out_texCoord	= texCoord;
-	particlePosition = new_position;
+	//OUT.position	= new_position;
+	OUT.colour		= colour;
+	OUT.texCoord	= texCoord;
 	
 }
