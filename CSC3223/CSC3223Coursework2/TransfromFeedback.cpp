@@ -39,7 +39,7 @@ void TransformFeedback::SetTransformFeedbackVaryings(GLuint program, GLsizei cou
 
 	 const GLchar * varyingss[] =
 	{
-		"particlePosition"
+		"position"
 	};
 
 	//const char* varyingss[] = { varyings };

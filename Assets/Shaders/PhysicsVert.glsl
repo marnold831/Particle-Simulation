@@ -1,4 +1,4 @@
-#version 420 core
+#version 400 core
 
 uniform mat4 modelMatrix 	= mat4(1.0f);
 uniform mat4 viewMatrix 	= mat4(1.0f);
@@ -11,7 +11,7 @@ layout(location = 2) in vec2 texCoord;
 
 out Vertex 
 {
-	//vec3 position;
+	vec3 position;
 	vec4 colour;
 	vec2 texCoord;
 	
@@ -30,7 +30,7 @@ void main(void)
 	mat4 mvp 		= (projMatrix * viewMatrix * modelMatrix);
 	
 	gl_Position		= mvp * vec4(new_position, 1.0);
-	//OUT.position	= new_position;
+	OUT.position	= new_position;
 	OUT.colour		= colour;
 	OUT.texCoord	= texCoord;
 	
