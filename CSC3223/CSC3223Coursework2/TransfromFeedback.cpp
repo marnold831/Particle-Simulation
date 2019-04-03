@@ -52,6 +52,8 @@ void TransformFeedback::SetTransformFeedbackVaryings(GLuint program, GLsizei cou
 	if (logLength) {
 		char* tempData = new char[logLength];
 		glGetProgramInfoLog(program, logLength, NULL, tempData);
+		std::cout << "---- Error -----" << std::endl;
+		std::cout << "Current Program: " << program << std::endl;
 		std::cout << "Transform Link Log:\n" << tempData << std::endl;
 		delete tempData;
 	}

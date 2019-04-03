@@ -48,6 +48,7 @@ void Renderer::RenderFrame() {
 
 	for (RenderObject* object : renderObjects) {
 		OGLShader* objectShader = (OGLShader*)object->GetShader();
+		OGLShader* objectShader2 = (OGLShader*)object->GetRenderShader();
 		if (!object->GetMesh()) {
 			continue;
 		}
@@ -73,7 +74,7 @@ void Renderer::RenderFrame() {
 				glDisable(GL_RASTERIZER_DISCARD);
 				
 				BindMesh(object->GetMesh());
-				activeShader = (OGLShader*)object->GetTransformShader();
+				activeShader = objectShader2;
 				feedback.SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
 				BindShader(activeShader);
 				

@@ -76,9 +76,12 @@ void TerrainGeneration::RenderPlane(Renderer& renderer, vector<Vector3> verts, v
 	terrainMESH->SetPrimitiveType(GeometryPrimitive::TriangleStrip);
 	terrainMESH->UploadToGPU();
 
+	OGLShader* shader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl");
 	Matrix4 scale = Matrix4::Scale(Vector3(100, 8, 100));
 	RenderObject* terrainOBJ = new RenderObject(terrainMESH, scale);
 	terrainOBJ->SetBaseTexture(newTex);
+	terrainOBJ->SetShader(shader);
+
 	renderer.EnableBilinearFiltering(*(OGLTexture*)newTex);
 	renderer.EnableMipMapFiltering(*(OGLTexture*)newTex);
 	renderer.AddRenderObject(terrainOBJ);

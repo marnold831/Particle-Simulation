@@ -45,11 +45,11 @@ namespace NCL {
 			ShaderBase* GetShader() const {
 				return shader;
 			}
-			void SetTransformShader(ShaderBase* s) {
-				transformShader = s;
+			void setRenderShader(ShaderBase* s) {
+				renderShader = s;
 			}
-			ShaderBase* GetTransformShader() const {
-				return transformShader;
+			ShaderBase* GetRenderShader() const {
+				return renderShader;
 			}
 			GLuint* GetBuffer() {
 				return buffer;
@@ -74,7 +74,7 @@ namespace NCL {
 			MeshGeometry*	mesh;
 			TextureBase*	texture;
 			ShaderBase*		shader;
-			ShaderBase*		transformShader;
+			ShaderBase*		renderShader;
 			Matrix4			transform;
 			GLuint			buffer[2];
 			const char*		varyings;
