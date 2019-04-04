@@ -36,6 +36,7 @@ void SnowGeneration::generateSnow(Renderer& renderer, float width, float depth) 
 	
 
 	OGLShader* particlesShader = new OGLShader("PhysicsVert.glsl", "PhysicsFrag.glsl", "PhysicsGeom.glsl");
+	OGLShader* noTransformTestShader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl", "RasterisationGeom.glsl");
 	std::cout << "Particle Shader ID: " << particlesShader->GetProgramID() << std::endl;
 	OGLShader* transformShader = new OGLShader("TransformVert.glsl", "TransformFrag.glsl");
 	std::cout << "Transform Shader ID: " << transformShader->GetProgramID() << std::endl;
@@ -46,9 +47,10 @@ void SnowGeneration::generateSnow(Renderer& renderer, float width, float depth) 
 	};
 	static const char* pointer;
 	pointer = varyings;
-	RenderObject* particlesOBJ = new RenderObject(particles, pointer, 1, true, modelMat);
+	RenderObject* particlesOBJ = new RenderObject(particles, pointer, 1, false, modelMat);
 	particlesOBJ->SetBaseTexture(OGLTexture::RGBATextureFromFilename("snowball.png"));
-	particlesOBJ->SetShader(transformShader);
+	//particlesOBJ->SetShader(transformShader);
+	particlesOBJ->SetShader(noTransformTestShader);
 	particlesOBJ->setRenderShader(particlesShader);
 	renderer.AddRenderObject(particlesOBJ);
 
