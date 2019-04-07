@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include "TransformFeedback.h"
+
 #include "../../Common/TextureWriter.h"
 #include "../../Common/Maths.h"
 #include "../../Common/Matrix3.h"
@@ -42,7 +42,7 @@ void Renderer::SetMatrixTransform(RenderObject* object, int modelLocation) {
 
 void Renderer::RenderFrame() {
 	OGLShader* activeShader = nullptr;
-	TransformFeedback feedback;
+	
 
 	int modelLocation = 0;
 
@@ -60,35 +60,34 @@ void Renderer::RenderFrame() {
 				static int frame_count = 0;
 
 				activeShader = objectShader;
-				feedback.SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
+				tFeedback->SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
 				BindShader(activeShader); //sets glUseProgram to that of the shader id
 				glEnable(GL_RASTERIZER_DISCARD);
 				modelLocation = SetShaderAttributes(activeShader);
 				SetMatrixTransform(object, modelLocation);
 				
 				BindMesh(object->GetMesh());
-				feedback.InitTransformFeedback(object->GetBuffer(), object);
-				feedback.EnableTransformFeedback(object);
+				tFeedback->InitTransformFeedback(object->GetBuffer(), object);
+				tFeedback->EnableTransformFeedback(object);
 				DrawBoundMesh();
-				feedback.DisableTransformFeedback();
+				tFeedback->DisableTransformFeedback();
 				glDisable(GL_RASTERIZER_DISCARD);
 				
 				BindMesh(object->GetMesh());
 				activeShader = objectShader2;
-				feedback.SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
 				BindShader(activeShader);
 				
 				modelLocation = SetShaderAttributes(activeShader);
 				SetMatrixTransform(object, modelLocation);
 				BindMesh(object->GetMesh());
 				
-				feedback.EnableTransformFeedback(object);
-				feedback.ReadTransformFeedback(object);
-				GLuint mode = feedback.TypeConvertion(object->GetMesh()->GetPrimitiveType());
+				tFeedback->EnableTransformFeedback(object);
+				tFeedback->ReadTransformFeedback(object);
+				GLuint mode = tFeedback->TypeConvertion(object->GetMesh()->GetPrimitiveType());
 				DrawBoundMesh();
-				feedback.DisableTransformFeedback();
+				tFeedback->DisableTransformFeedback();
 				
-				feedback.UpdateFrameCount();
+				tFeedback->UpdateFrameCount();
 			}
 		}
 		else {

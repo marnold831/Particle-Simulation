@@ -19,7 +19,10 @@ namespace NCL {
 				void SetTransformFeedbackVaryings(GLuint program, GLsizei count, const char* varyings);
 
 				void BindVertexAttribute(int attribSlot, int buffer, int bindingID, int elementCount, int elementSize, int elementOffset);
-				void UpdateFrameCount() { frameCount++; }
+				void UpdateFrameCount() { 
+					frameCount++; 
+					std::cout << "Current Frame Count Value: " << frameCount << std::endl;
+				}
 			
 				GLuint TypeConvertion(GeometryPrimitive primitive) {
 					GLuint mode = 0;

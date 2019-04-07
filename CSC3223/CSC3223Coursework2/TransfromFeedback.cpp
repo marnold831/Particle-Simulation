@@ -29,9 +29,13 @@ void TransformFeedback::InitTransformFeedback(GLuint* outputVBO, RenderObject* o
 	//glGenBuffers(1, object->GetBuffer());
 	if ((frameCount & 1) != 0 ){
 		glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, object->GetBuffer()[0]);
+		//glBindVertexArray(object->GetBuffer()[1]);
+		BindVertexAttribute(0, object->GetBuffer()[1], 0, 3, sizeof(Vector3), 0);
 	}
 	else {
 		glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, object->GetBuffer()[1]);
+		//glBindVertexArray(object->GetBuffer()[0]);
+		BindVertexAttribute(0, object->GetBuffer()[0], 0, 3, sizeof(Vector3), 0);
 	}
 	//glBufferData(GL_ARRAY_BUFFER, object->GetMesh()->GetVertexCount() * sizeof(Vector4), NULL, GL_DYNAMIC_DRAW);
 }
@@ -39,7 +43,7 @@ void TransformFeedback::SetTransformFeedbackVaryings(GLuint program, GLsizei cou
 
 	 const GLchar * varyingss[] =
 	{
-		"position"
+		"transformPos"
 	};
 
 	//const char* varyingss[] = { varyings };

@@ -47,10 +47,10 @@ void SnowGeneration::generateSnow(Renderer& renderer, float width, float depth) 
 	};
 	static const char* pointer;
 	pointer = varyings;
-	RenderObject* particlesOBJ = new RenderObject(particles, pointer, 1, false, modelMat);
+	RenderObject* particlesOBJ = new RenderObject(particles, pointer, 1, true, modelMat);
 	particlesOBJ->SetBaseTexture(OGLTexture::RGBATextureFromFilename("snowball.png"));
-	//particlesOBJ->SetShader(transformShader);
-	particlesOBJ->SetShader(noTransformTestShader);
+	particlesOBJ->SetShader(transformShader);
+	//particlesOBJ->SetShader(noTransformTestShader);
 	particlesOBJ->setRenderShader(particlesShader);
 	renderer.AddRenderObject(particlesOBJ);
 

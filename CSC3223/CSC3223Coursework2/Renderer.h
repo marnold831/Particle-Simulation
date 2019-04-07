@@ -3,14 +3,15 @@
 #include "../../Plugins/OpenGLRendering/OGLShader.h"
 #include "../../Plugins/OpenGLRendering/OGLTexture.h"
 #include "../../Plugins/OpenGLRendering/OGLMesh.h"
-
+#include "TransformFeedback.h"
 #include "RenderObject.h"
 
 #include "../../Common/Vector2.h"
 
 namespace NCL {
+
 	namespace CSC3223 {
-		
+		using namespace TFeedback;
 		class Renderer : public OGLRenderer
 		{
 		public:
@@ -57,6 +58,7 @@ namespace NCL {
 			OGLShader*		defaultShader;
 			Matrix4		projMatrix;
 			Matrix4		viewMatrix;
+			TransformFeedback* tFeedback = new TransformFeedback;
 
 			vector<RenderObject*> renderObjects;
 		};

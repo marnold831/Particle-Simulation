@@ -15,17 +15,18 @@ out Vertex
 	vec2 texCoord;
 } OUT;
 
-
+out vec3 transformPos;
 	
 void main(void)
 {
 	mat4 mvp 		= (projMatrix * viewMatrix * modelMatrix);
 
 	gl_Position		= mvp * vec4(position, 1.0);
-
+	
 	OUT.position	= position;
 	OUT.colour		= colour;
 	OUT.texCoord	= texCoord;
+	transformPos = position;
 	
 	
 	

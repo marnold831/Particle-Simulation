@@ -21,12 +21,13 @@ out Vertex
 void main(void)
 {
 	
-	vec3 new_position = vec3(position.x, position.y - 5, position.z);
+	vec3 new_position = position;
+	new_position.y = new_position.y - 3;
 	
-	//if(new_position.y < 10.0)
-	//{
-	//	new_position = (new_position.x, new_position.y + 60, new_position.z);
-	//}
+	if(new_position.y < 10.0)
+	{
+		new_position.y = new_position.y +60;
+	}
 	mat4 mvp 		= (projMatrix * viewMatrix * modelMatrix);
 	
 	gl_Position		= mvp * vec4(new_position, 1.0);

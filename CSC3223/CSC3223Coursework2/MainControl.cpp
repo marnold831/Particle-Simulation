@@ -3,10 +3,12 @@
 #include "../../Common/MeshGeometry.h"
 #include "TerrainGeneration.h"
 #include "SnowGeneration.h"
+#include "TransformFeedback.h"
 
 using namespace NCL;
 using namespace CSC3223;
 using namespace Generation;
+using namespace TFeedback;
 
 int main() {
 	Window*w = Window::CreateGameWindow("CSC3223 Tutorials!");
@@ -36,6 +38,8 @@ int main() {
 	Renderer*	renderer = new Renderer(*w);
 	TerrainGeneration* tG = new TerrainGeneration();
 	SnowGeneration* sG = new SnowGeneration(1000, 5.0, 50.0);
+	
+	TransformFeedback* tFeedback = new TransformFeedback();
 	tG->generatePlane(*renderer, depth, width, 5.2, 5.2);
 	sG->generateSnow(*renderer, width, depth);
 
