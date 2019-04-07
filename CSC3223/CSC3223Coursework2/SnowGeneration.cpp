@@ -41,14 +41,14 @@ void SnowGeneration::generateSnow(Renderer& renderer, float width, float depth) 
 	OGLShader* transformShader = new OGLShader("TransformVert.glsl", "TransformFrag.glsl");
 	std::cout << "Transform Shader ID: " << transformShader->GetProgramID() << std::endl;
 	//OGLShader* transformShader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl", "ParticleGeom.glsl");
-
+	//TextureBase* newTex = OGLTexture::RGBATextureFromFilename("snowball.PNG");
 	static const char varyings[] = {
 		"particlePosition"
 	};
 	static const char* pointer;
 	pointer = varyings;
 	RenderObject* particlesOBJ = new RenderObject(particles, pointer, 1, true, modelMat);
-	particlesOBJ->SetBaseTexture(OGLTexture::RGBATextureFromFilename("snowball.png"));
+	//particlesOBJ->SetBaseTexture(newTex);
 	particlesOBJ->SetShader(transformShader);
 	//particlesOBJ->SetShader(noTransformTestShader);
 	particlesOBJ->setRenderShader(particlesShader);

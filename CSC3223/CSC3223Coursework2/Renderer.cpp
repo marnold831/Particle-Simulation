@@ -81,9 +81,8 @@ void Renderer::RenderFrame() {
 				SetMatrixTransform(object, modelLocation);
 				BindMesh(object->GetMesh());
 				
-				tFeedback->EnableTransformFeedback(object);
 				tFeedback->ReadTransformFeedback(object);
-				GLuint mode = tFeedback->TypeConvertion(object->GetMesh()->GetPrimitiveType());
+				tFeedback->EnableTransformFeedback(object);
 				DrawBoundMesh();
 				tFeedback->DisableTransformFeedback();
 				
