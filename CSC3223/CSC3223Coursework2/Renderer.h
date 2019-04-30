@@ -59,7 +59,6 @@ namespace NCL {
 			Matrix4		projMatrix;
 			Matrix4		viewMatrix;
 			TransformFeedback* tFeedback = new TransformFeedback;
-
 			vector<RenderObject*> renderObjects;
 		};
 	}

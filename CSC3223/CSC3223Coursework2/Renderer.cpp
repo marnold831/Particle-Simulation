@@ -56,11 +56,12 @@ void Renderer::RenderFrame() {
 			objectShader = defaultShader;
 		}
 		if (object->GetIsTransform()) {
+		std::cout << object->GetMesh()->GetVertexCount() << std::endl;
 			if (objectShader != activeShader) {//if not null
 				static int frame_count = 0;
 
 				activeShader = objectShader;
-				tFeedback->SetTransformFeedbackVaryings(activeShader->GetProgramID(), object->GetVaryingsSize(), object->GetVaryings());
+				tFeedback->SetTransformFeedbackVaryings(activeShader->GetProgramID());
 				BindShader(activeShader); //sets glUseProgram to that of the shader id
 				glEnable(GL_RASTERIZER_DISCARD);
 				modelLocation = SetShaderAttributes(activeShader);
@@ -73,7 +74,6 @@ void Renderer::RenderFrame() {
 				tFeedback->DisableTransformFeedback();
 				glDisable(GL_RASTERIZER_DISCARD);
 				
-				BindMesh(object->GetMesh());
 				activeShader = objectShader2;
 				BindShader(activeShader);
 				
@@ -81,7 +81,7 @@ void Renderer::RenderFrame() {
 				SetMatrixTransform(object, modelLocation);
 				BindMesh(object->GetMesh());
 				
-				tFeedback->ReadTransformFeedback(object);
+				tFeedback->InitTransformFeedback(object->GetBuffer(), object);
 				tFeedback->EnableTransformFeedback(object);
 				DrawBoundMesh();
 				tFeedback->DisableTransformFeedback();

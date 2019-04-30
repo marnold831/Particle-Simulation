@@ -20,34 +20,39 @@ void TransformFeedback::ReadTransformFeedback(RenderObject* object) {
 
 	if ((frameCount & 1) != 0) {
 		BindVertexAttribute(0, object->GetBuffer()[1], 0, 3, sizeof(Vector3), 0);
+		
 	}
 	else {
 		BindVertexAttribute(0, object->GetBuffer()[0], 0, 3, sizeof(Vector3), 0);
+	
 	}
 }
 void TransformFeedback::InitTransformFeedback(GLuint* outputVBO, RenderObject* object) {
-	//glGenBuffers(1, object->GetBuffer());
+	
 	if ((frameCount & 1) != 0 ){
 		glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, object->GetBuffer()[0]);
-		//glBindVertexArray(object->GetBuffer()[1]);
+	
+		
 		BindVertexAttribute(0, object->GetBuffer()[1], 0, 3, sizeof(Vector3), 0);
+	
 	}
 	else {
 		glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, object->GetBuffer()[1]);
-		//glBindVertexArray(object->GetBuffer()[0]);
+	
+	
 		BindVertexAttribute(0, object->GetBuffer()[0], 0, 3, sizeof(Vector3), 0);
+		
 	}
-	//glBufferData(GL_ARRAY_BUFFER, object->GetMesh()->GetVertexCount() * sizeof(Vector4), NULL, GL_DYNAMIC_DRAW);
+	
 }
-void TransformFeedback::SetTransformFeedbackVaryings(GLuint program, GLsizei count,  const char* varyings) {
+void TransformFeedback::SetTransformFeedbackVaryings(GLuint program) {
 
 	 const GLchar * varyingss[] =
 	{
 		"transformPos"
 	};
 
-	//const char* varyingss[] = { varyings };
-	glTransformFeedbackVaryings(program, count,  varyingss, GL_INTERLEAVED_ATTRIBS);
+	glTransformFeedbackVaryings(program, 1,  varyingss, GL_INTERLEAVED_ATTRIBS);
 	glLinkProgram(program);
 
 	int logLength = 0;

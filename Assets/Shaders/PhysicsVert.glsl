@@ -8,6 +8,7 @@ uniform mat4 projMatrix 	= mat4(1.0f);
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec4 colour;	
 layout(location = 2) in vec2 texCoord;
+//layout(location = 3) in vec3 velocity;
 
 out Vertex 
 {
@@ -22,12 +23,12 @@ void main(void)
 {
 	
 	vec3 new_position = position;
-	new_position.y = new_position.y - 3;
+	//new_position.y = new_position.y - 3;
 	
-	if(new_position.y < 10.0)
-	{
-		new_position.y = new_position.y +60;
-	}
+	//if(new_position.y < 10.0)
+	//{
+		//new_position.y = new_position.y +60;
+	//}
 	mat4 mvp 		= (projMatrix * viewMatrix * modelMatrix);
 	
 	gl_Position		= mvp * vec4(new_position, 1.0);

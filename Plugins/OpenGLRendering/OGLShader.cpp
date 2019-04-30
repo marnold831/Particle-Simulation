@@ -39,7 +39,7 @@ void OGLShader::ReloadShader() {
 			if (Assets::ReadTextFile(Assets::SHADERDIR + shaderFiles[i], fileContents)) {
 				shaderIDs[i] = glCreateShader(shaderTypes[i]);
 
-				std::cout << "Reading " << ShaderNames[i] << " shader " << shaderFiles[i] << " wtih Program ID: " << programID << std::endl;
+				//std::cout << "Reading " << ShaderNames[i] << " shader " << shaderFiles[i] << " wtih Program ID: " << programID << std::endl;
 
 				const char* stringData	 = fileContents.c_str();
 				int			stringLength = fileContents.length();

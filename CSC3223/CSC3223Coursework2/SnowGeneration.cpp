@@ -26,32 +26,28 @@ void SnowGeneration::generateSnow(Renderer& renderer, float width, float depth) 
 		float z = float_distZ(rng);
 	
 		verts.push_back(Vector3(x, y, z));
+		
 	}
 
 	Matrix4 modelMat = Matrix4::Translation(Vector3(0, 0, 0));
 	particles->SetVertexPositions(verts);
 	particles->SetVertexColours(colour);
+	
 	particles->SetPrimitiveType(GeometryPrimitive::Points);
 	particles->UploadToGPU();
 	
 
 	OGLShader* particlesShader = new OGLShader("PhysicsVert.glsl", "PhysicsFrag.glsl", "PhysicsGeom.glsl");
-	OGLShader* noTransformTestShader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl", "RasterisationGeom.glsl");
-	std::cout << "Particle Shader ID: " << particlesShader->GetProgramID() << std::endl;
 	OGLShader* transformShader = new OGLShader("TransformVert.glsl", "TransformFrag.glsl");
-	std::cout << "Transform Shader ID: " << transformShader->GetProgramID() << std::endl;
-	//OGLShader* transformShader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl", "ParticleGeom.glsl");
-	//TextureBase* newTex = OGLTexture::RGBATextureFromFilename("snowball.PNG");
-	static const char varyings[] = {
-		"particlePosition"
-	};
-	static const char* pointer;
-	pointer = varyings;
-	RenderObject* particlesOBJ = new RenderObject(particles, pointer, 1, true, modelMat);
-	//particlesOBJ->SetBaseTexture(newTex);
+	
+	TextureBase* newTex = OGLTexture::RGBATextureFromFilename("snowball.PNG");
+	
+	RenderObject* particlesOBJ = new RenderObject(particles, true, modelMat);
+
+	particlesOBJ->SetBaseTexture(newTex);
 	particlesOBJ->SetShader(transformShader);
-	//particlesOBJ->SetShader(noTransformTestShader);
 	particlesOBJ->setRenderShader(particlesShader);
+
 	renderer.AddRenderObject(particlesOBJ);
 
 	

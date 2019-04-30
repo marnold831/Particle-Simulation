@@ -68,7 +68,7 @@ void TerrainGeneration::generatePlane(Renderer& renderer, double depth, double w
 void TerrainGeneration::RenderPlane(Renderer& renderer, vector<Vector3> verts, vector<Vector4> colours, vector<Vector2> texCoords) {
 
 	OGLMesh* terrainMESH = new OGLMesh();
-	//TextureBase* newTex = OGLTexture::RGBATextureFromFilename("terrain.PNG");
+	TextureBase* newTex = OGLTexture::RGBATextureFromFilename("terrain.PNG");
 
 	terrainMESH->SetVertexPositions(verts);
 	terrainMESH->SetVertexColours(colours);
@@ -79,10 +79,10 @@ void TerrainGeneration::RenderPlane(Renderer& renderer, vector<Vector3> verts, v
 	OGLShader* shader = new OGLShader("RasterisationVert.glsl", "RasterisationFrag.glsl");
 	Matrix4 scale = Matrix4::Scale(Vector3(100, 8, 100));
 	RenderObject* terrainOBJ = new RenderObject(terrainMESH, scale);
-	//terrainOBJ->SetBaseTexture(newTex);
+	terrainOBJ->SetBaseTexture(newTex);
 	terrainOBJ->SetShader(shader);
 
-//	renderer.EnableBilinearFiltering(*(OGLTexture*)newTex);
-	//renderer.EnableMipMapFiltering(*(OGLTexture*)newTex);
+	renderer.EnableBilinearFiltering(*(OGLTexture*)newTex);
+	renderer.EnableMipMapFiltering(*(OGLTexture*)newTex);
 	renderer.AddRenderObject(terrainOBJ);
 }

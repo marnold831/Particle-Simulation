@@ -4,6 +4,7 @@
 #include "TerrainGeneration.h"
 #include "SnowGeneration.h"
 #include "TransformFeedback.h"
+#include <exception>
 
 using namespace NCL;
 using namespace CSC3223;
@@ -20,8 +21,8 @@ int main() {
 	Vector2 size = w->GetScreenSize();
 	float currentWidth = size.x;
 	float currentHeight = size.y;
-	float depth = 100.0;
-	float width = 100.0;
+	float depth = 200.0;
+	float width = 200.0;
 	bool screenLock = true;
 	bool wireFrame = false;
 
@@ -37,11 +38,17 @@ int main() {
 	/*Renderer Creation, Objects Creation*/
 	Renderer*	renderer = new Renderer(*w);
 	TerrainGeneration* tG = new TerrainGeneration();
-	SnowGeneration* sG = new SnowGeneration(1000, 5.0, 50.0);
+	SnowGeneration* sG = new SnowGeneration(100000, 5.0, 50.0);
 	
 	TransformFeedback* tFeedback = new TransformFeedback();
 	tG->generatePlane(*renderer, depth, width, 5.2, 5.2);
-	sG->generateSnow(*renderer, width, depth);
+	try {
+		sG->generateSnow(*renderer, width, depth);
+	}
+	catch (std::exception& e) {
+		std::cout << "Exception: " << e.what() << std::endl;
+	}
+	
 
 	/*set background colour black*/
 	//lClearColor(0.0, 0.75, 0.99, 1);

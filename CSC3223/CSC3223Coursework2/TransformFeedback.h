@@ -16,12 +16,11 @@ namespace NCL {
 
 				void ReadTransformFeedback(RenderObject* object);
 				void InitTransformFeedback(GLuint* outputVBO, RenderObject* object);
-				void SetTransformFeedbackVaryings(GLuint program, GLsizei count, const char* varyings);
+				void SetTransformFeedbackVaryings(GLuint program);
 
 				void BindVertexAttribute(int attribSlot, int buffer, int bindingID, int elementCount, int elementSize, int elementOffset);
 				void UpdateFrameCount() { 
 					frameCount++; 
-					std::cout << "Current Frame Count Value: " << frameCount << std::endl;
 				}
 			
 				GLuint TypeConvertion(GeometryPrimitive primitive) {

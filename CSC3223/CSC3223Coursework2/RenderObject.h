@@ -14,7 +14,7 @@ namespace NCL {
 		{
 		public:
 			RenderObject(MeshGeometry* mesh, Matrix4 m = Matrix4());
-			RenderObject(MeshGeometry* mesh, const char* varyings, int varyingsSize, bool isTransform, Matrix4 m = Matrix4());
+			RenderObject(MeshGeometry* mesh, bool isTransform, Matrix4 m = Matrix4());
 			~RenderObject();
 
 			MeshGeometry*		GetMesh() const {
@@ -54,16 +54,7 @@ namespace NCL {
 			GLuint* GetBuffer() {
 				return buffer;
 			}
-			void SetVaryings(const char* varyings, int size) {
-				this->varyings = varyings;
-				varyingsSize = size;
-			}
-			const char* GetVaryings() const {
-				return varyings;
-			}
-			int GetVaryingsSize()const {
-				return varyingsSize;
-			}
+	
 			void SetIsTransform(bool transform) {
 				isTransform = transform;
 			}
@@ -77,8 +68,6 @@ namespace NCL {
 			ShaderBase*		renderShader;
 			Matrix4			transform;
 			GLuint			buffer[2];
-			const char*		varyings;
-			int				varyingsSize;
 			bool			isTransform;
 		};
 	}
