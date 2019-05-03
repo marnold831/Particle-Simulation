@@ -1,3 +1,8 @@
+/*	Author: Michael John Arnold
+	Description: This class is responsible for the handling of transform feedback. This class contains the relevant methods
+	for transform feedback setup and for during rendering. 
+*/
+
 #include "TransformFeedback.h"
 
 using namespace NCL;

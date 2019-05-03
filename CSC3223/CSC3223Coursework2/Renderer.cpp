@@ -1,3 +1,7 @@
+/*	Author: Michael John Arnold
+	Description: This class is repsonsible for the handling of the render loop. This class controls the rendering for the terrain and particle system
+	therefore is able to run with transform feedback and without.
+*/
 #include "Renderer.h"
 
 #include "../../Common/TextureWriter.h"
@@ -56,16 +60,15 @@ void Renderer::RenderFrame() {
 			objectShader = defaultShader;
 		}
 		if (object->GetIsTransform()) {
-		std::cout << object->GetMesh()->GetVertexCount() << std::endl;
 			if (objectShader != activeShader) {//if not null
 				static int frame_count = 0;
 
 				activeShader = objectShader;
 				tFeedback->SetTransformFeedbackVaryings(activeShader->GetProgramID());
 				BindShader(activeShader); //sets glUseProgram to that of the shader id
-				glEnable(GL_RASTERIZER_DISCARD);
 				modelLocation = SetShaderAttributes(activeShader);
 				SetMatrixTransform(object, modelLocation);
+				glEnable(GL_RASTERIZER_DISCARD);
 				
 				BindMesh(object->GetMesh());
 				tFeedback->InitTransformFeedback(object->GetBuffer(), object);
@@ -81,6 +84,7 @@ void Renderer::RenderFrame() {
 				SetMatrixTransform(object, modelLocation);
 				BindMesh(object->GetMesh());
 				
+	
 				tFeedback->InitTransformFeedback(object->GetBuffer(), object);
 				tFeedback->EnableTransformFeedback(object);
 				DrawBoundMesh();

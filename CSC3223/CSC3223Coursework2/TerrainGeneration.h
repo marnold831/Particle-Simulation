@@ -14,7 +14,7 @@ namespace NCL {
 				TerrainGeneration();
 				~TerrainGeneration();
 				void generatePlane(Renderer& renderer, double depth, double width, double xVariance, double zVariance);
-
+				void generateFlatPlane(Renderer& renderer, double depth, double width);
 			private:
 				double* generate1DHeights(double scale, int distance, double xVariance, double zVariance);
 				double** generateHeights(double xScale, double zScale, int width, int depth, double xVariance, double zVariance);

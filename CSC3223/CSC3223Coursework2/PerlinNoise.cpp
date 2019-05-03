@@ -1,3 +1,8 @@
+/*	Author: Michael John Arnold
+	Original Author: Ken Perlin
+	Description: Apdation of ken Perlin's Perlin Noise as coded in Java. 
+*/
+
 #include "PerlinNoise.h"
 
 using namespace NCL;

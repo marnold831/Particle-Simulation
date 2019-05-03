@@ -1,3 +1,13 @@
+/*	Author: Michael John Arnold
+	Description: This class forms the main control to the project. It is repsonsible for creating the context and window, setting the terrain attributes
+	and calling the relavent methods to generate and render terrain and particle systems. This class is also responsible for managing user inputs.
+*/
+
+
+
+
+
+
 #include "../../Common/Window.h"
 #include "../../Common/TextureLoader.h"
 #include "../../Common/MeshGeometry.h"
@@ -5,6 +15,7 @@
 #include "SnowGeneration.h"
 #include "TransformFeedback.h"
 #include <exception>
+#include <ctime>
 
 using namespace NCL;
 using namespace CSC3223;
@@ -21,8 +32,8 @@ int main() {
 	Vector2 size = w->GetScreenSize();
 	float currentWidth = size.x;
 	float currentHeight = size.y;
-	float depth = 200.0;
-	float width = 200.0;
+	float depth = 500.0;
+	float width = 500.0;
 	bool screenLock = true;
 	bool wireFrame = false;
 
@@ -38,31 +49,34 @@ int main() {
 	/*Renderer Creation, Objects Creation*/
 	Renderer*	renderer = new Renderer(*w);
 	TerrainGeneration* tG = new TerrainGeneration();
-	SnowGeneration* sG = new SnowGeneration(100000, 5.0, 50.0);
-	
+	SnowGeneration* sG = new SnowGeneration(1000, 5.0, 120.0);
 	TransformFeedback* tFeedback = new TransformFeedback();
-	tG->generatePlane(*renderer, depth, width, 5.2, 5.2);
-	try {
-		sG->generateSnow(*renderer, width, depth);
-	}
-	catch (std::exception& e) {
-		std::cout << "Exception: " << e.what() << std::endl;
-	}
 	
+	/*Terrain Generataion*/
+	clock_t begin = clock();
+	tG->generatePlane(*renderer, depth, width, 5.2, 5.2);
+	//tG->generateFlatPlane(*renderer, depth, width);
+	clock_t end = clock();
+	std::cout << "Time to Load Terrain: " << double(end - begin) / CLOCKS_PER_SEC << std::endl;
+
+	/*Particle System Generation*/
+	clock_t begin2 = clock();
+	sG->generateSnow(*renderer, 150, 150);
+	clock_t end2 = clock();
+	std::cout << "Time to Load Particles: " << double(end2 - begin2) / CLOCKS_PER_SEC << std::endl;
+
 
 	/*set background colour black*/
-	//lClearColor(0.0, 0.75, 0.99, 1);
 	glClearColor(0.75, 0.75, 0.75, 1.0);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	/*Set projection matrix*/
 	renderer->SetProjectionMatrix(Matrix4::Perspective(1.0f, 200.0f, w->GetScreenAspect(), 60.0f));
-	//renderer->SetProjectionMatrix(Matrix4::Orthographic(-1.0f, 1.0f, currentWidth, 0.0f, 0.0f, currentHeight));
 
 	/*Enable Depth Buffer*/
 	renderer->EnableDepthBuffer(true);
 	
-
+	/*Main system loop*/
 	while (w->UpdateWindow() && !Window::GetKeyboard()->KeyDown(KEYBOARD_ESCAPE)) {
 
 		renderer->EnableAlphaBlending(true);
@@ -110,6 +124,7 @@ int main() {
 		/*Camera Controls*/
 		if (Window::GetKeyboard()->KeyDown(KEYBOARD_A)) {
 			viewPosition += Matrix4::Rotation(-yaw, Vector3(0, 1, 0)) * Vector3(-1, 0, 0) * time * speed;
+			
 		}
 		if (Window::GetKeyboard()->KeyDown(KEYBOARD_D)) {
 			viewPosition -= Matrix4::Rotation(-yaw, Vector3(0, 1, 0)) * Vector3(-1, 0, 0) * time * speed;
@@ -140,6 +155,7 @@ int main() {
 			viewPosition = (Vector3(0, 0, 0));
 			renderer->SetViewMatrix(Matrix4::Translation(viewPosition));
 		}
+		/*Movement speed controls*/
 		if (Window::GetKeyboard()->KeyPressed(KEYBOARD_1)) {
 			speed = 1.0;
 		}
@@ -182,7 +198,7 @@ int main() {
 		renderer->SetViewMatrix(Matrix4::Rotation(pitch, Vector3(1, 0, 0)) * Matrix4::Rotation(yaw, Vector3(0, 1, 0)) * Matrix4::Translation(-viewPosition));
 		renderer->Render();
 	}
-
+	/*Clean Up*/
 	delete renderer;
 	delete tG;
 	Window::DestroyGameWindow();
